@@ -6,14 +6,14 @@ spring:
       client:
         registration:
           github:
-            client-id: <github的clientID，去https://github.com/settings/developers的OAuth Apps中创建一个>
-            client-secret: <github的clientSecret>
+            client-id: d915a5705f43a40c72da
+            client-secret: 55050cdd7cfcc894640d1b87979a1b336f5ec29e
           itlab1024:
             client-id: itlab1024
             client-secret: itlab1024
             authorization-grant-type: authorization_code
             client-authentication-method: client_secret_basic
-            scope: openid
+            scope: openid,message.read,message.write
             redirect-uri: http://oauth2login:8000/login/oauth2/code/itlab1024
             provider: itlab1024
             client-name: IT实验室

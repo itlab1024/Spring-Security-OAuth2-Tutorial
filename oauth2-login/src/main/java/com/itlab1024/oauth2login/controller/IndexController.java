@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class IndexController {
 
     /**
-     * 登录成功页面
+     * 登录成功后才能访问到用户信息和授权信息等
      *
      * @param model
      * @param authorizedClient
@@ -27,7 +27,7 @@ public class IndexController {
         System.out.println(authorizedClient.getAccessToken());
         model.addAttribute("authorizedClient", authorizedClient);
         model.addAttribute("oauth2User",oauth2User);
-        return "login-success";
+        return "meta";
     }
 
 }
