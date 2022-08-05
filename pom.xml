@@ -5,6 +5,7 @@
     <modules>
         <module>oauth2-login</module>
         <module>oauth2-server</module>
+        <module>oauth2-resource</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
