@@ -36,7 +36,9 @@ Spring-Security-OAuth2-Tutorial/
 
 [Git文档](https://github.com/itlab1024/Spring-Security-OAuth2-Tutorial/tree/main/oauth2-login)
 
-[博客文档](https://itlab1024.com/index.php/2022/08/05/spring-security-oauth2-login/）
+[博客文档](https://itlab1024.com/index.php/2022/08/05/spring-security-oauth2-login/)
+
+
 
 # 资源服务器
 
