@@ -38,7 +38,9 @@ Spring-Security-OAuth2-Tutorial/
 
 [博客文档](https://itlab1024.com/index.php/2022/08/05/spring-security-oauth2-login/）
 
+# 资源服务器
 
+努力开发中。。。
 
 # 运行项目
 
@@ -76,4 +78,8 @@ Spring-Security-OAuth2-Tutorial/
   }
   ```
 
-* 第二步启动oauth2-login，接下来开始测试登录。具体请查看该项目下的README说明。
+* 第二步启动资源服务器，开发中。。。
+
+* 第三步启动oauth2-login，接下来开始测试登录。具体请查看该项目下的README说明。
+
+  
