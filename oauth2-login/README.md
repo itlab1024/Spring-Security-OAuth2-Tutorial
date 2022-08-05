@@ -1,5 +1,7 @@
 > Spring Security OAuth2 Login基本使用， 本文主要介绍下使用Github和自定义授权服务器登录功能。
 
+![image-20220805151832899](https://itlab1024-1256529903.cos.ap-beijing.myqcloud.com/202208051518254.png)
+
 # 创建项目
 
 笔者使用IDEA工具。
