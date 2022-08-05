@@ -1,0 +1,28 @@
+server:
+  port: 8000
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          github:
+            client-id: <github的clientID，去https://github.com/settings/developers的OAuth Apps中创建一个>
+            client-secret: <github的clientSecret>
+          itlab1024:
+            client-id: itlab1024
+            client-secret: itlab1024
+            authorization-grant-type: authorization_code
+            client-authentication-method: client_secret_basic
+            scope: openid
+            redirect-uri: http://oauth2login:8000/login/oauth2/code/itlab1024
+            provider: itlab1024
+            client-name: IT实验室
+        provider:
+          itlab1024:
+#            authorization-uri: http://oauth2server:8080/oauth2/authorize
+#            token-uri: http://oauth2server:8080/oauth2/token
+#            jwk-set-uri: http://oauth2server:8080/oauth2/jwks
+#            user-info-uri: http://oauth2server:8080/userinfo
+#            user-name-attribute: sub
+            #单独配置如下一个也是可以的，底层会自动寻址，如果自定义过url，需要使用上面方式配置(修改oauthserve里上面那些url后，使用如下配置能否有效未测试)
+            issuer-uri: http://oauth2server:8080

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>登录成功</title>
+</head>
+<body>
+您已经通过客户端<span style="" th:text="${authorizedClient.clientRegistration.clientId}"></span>登录成功!<br>
+用户信息：<span th:text="${oauth2User.attributes}"></span><br>
+授权信息是：<br>
+类型: <span th:text="${authorizedClient.accessToken.tokenType}"></span><br>
+token: <span th:text="${authorizedClient.accessToken.tokenValue}"></span><br>
+范围: <span th:text="${authorizedClient.accessToken.scopes}"></span><br>
+过期时间: <span th:text="${authorizedClient.accessToken.expiresAt}"></span><br>
+签发时间: <span th:text="${authorizedClient.accessToken.issuedAt}"></span><br>
+</body>
+</html>
