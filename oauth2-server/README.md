@@ -1,13 +1,3 @@
-# Spring-Authorization-Server-0.3.1
-Spring Authorization Server 0.3.1
-
-# 说点什么
-`Spring Security Oauth2`弃用，`spring-authorization-server`刚刚出来第一版的时候我曾尝鲜过，那时候新版Authorization Server 只有官方demo，还没有使用文档，今天打开Spring.io的时候发现官方的版本更新到了0.3.0，并且提供了说明文档。
-
-![Spring Authorization Server](https://itlab1024-1256529903.cos.ap-beijing.myqcloud.com/202207231149399.png)
-
-所以打算根据文档尝试下。
-
 # 说明
 
 `Spring Authorization Server` 遵循[Oauth2.1](https://datatracker.ietf.org/doc/html/draft-ietf-oauth-v2-1-05)和[OpenID Connect 1.0](https://openid.net/specs/openid-connect-core-1_0.html)，它建立在`Spring Security`之上。
@@ -26,7 +16,7 @@ pom需要引入`Authorization Server的配置`
 <dependency>
     <groupId>org.springframework.security</groupId>
     <artifactId>spring-security-oauth2-authorization-server</artifactId>
-    <version>0.3.0</version>
+    <version>0.3.1</version>
 </dependency>
 ```
 
@@ -54,14 +44,9 @@ pom需要引入`Authorization Server的配置`
     <dependencies>
         <!-- 必须引入-->
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-security</artifactId>
-        </dependency>
-        <!-- 必须引入-->
-        <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-oauth2-authorization-server</artifactId>
-            <version>0.3.0</version>
+            <version>0.3.1</version>
         </dependency>
         <!-- 必须引入-->
         <dependency>
@@ -721,8 +706,6 @@ public class AuthorizationServerConfig {
 ![授权码模式-获取token](https://itlab1024-1256529903.cos.ap-beijing.myqcloud.com/202207231152412.png)
 
 授权码模式也没有问题。
-
-> 提交分支 v2.0.0
 
 
 
@@ -1434,15 +1417,13 @@ json结果是：
 
 说明客户端已经注册成功。
 
-> 提交分支v4.0.0
-
 ---
 
 > Spring Authorization Server其实目前也在不断完善中，很多功能也是不全的。
 >
 > 如果有人对openid connect1.0协议不了解，建议查看https://openid.net/connect/。
 >
-> 本文Github地址：https://github.com/ITLab1024/Spring-Authorization-Server-0.3.0
+> 本文Github地址：https://github.com/itlab1024/Spring-Security-OAuth2-Tutorial/tree/main/oauth2-server
 
 ---
 
