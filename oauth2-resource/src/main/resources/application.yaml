@@ -1,0 +1,8 @@
+server:
+  port: 8001
+spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://oauth2server:8080

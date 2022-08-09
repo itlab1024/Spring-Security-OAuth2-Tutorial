@@ -62,7 +62,7 @@ Spring-Security-OAuth2-Tutorial/
 
 ## 启动方法
 
-* 第一步启动oauth2-sever项目，请注意修改application.yaml下的数据库信息，如果想创建clientId信息，请去测试类里修改并执行。
+* 启动oauth2-sever项目，请注意修改application.yaml下的数据库信息，如果想创建clientId信息，请去测试类里修改并执行。
 
   ```java
   @Test
@@ -82,8 +82,8 @@ Spring-Security-OAuth2-Tutorial/
   }
   ```
 
-* 第二步启动资源服务器，开发中。。。
+* 启动资源服务器，接下来开始测试登录。具体请查看该项目下的README说明。
 
-* 第三步启动oauth2-login，接下来开始测试登录。具体请查看该项目下的README说明。
+* 启动oauth2-login，接下来开始测试登录。具体请查看该项目下的README说明。
 
   
