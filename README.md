@@ -45,6 +45,7 @@ Spring-Security-OAuth2-Tutorial/
 # 资源服务器
 
 [Github文档](https://github.com/itlab1024/Spring-Security-OAuth2-Tutorial/tree/main/oauth2-resource)
+
 [博客文档](https://itlab1024.com/index.php/2022/08/09/spring-security-oauth2-resource-server/)
 
 # 运行项目
