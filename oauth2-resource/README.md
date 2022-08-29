@@ -170,3 +170,96 @@ scope在AuthoritySet中，但是我设置的角色确不在，查了些资料发
 
 
 先写到这里，之后有了答案再补充，欢迎留言。
+
+# 用户角色无法获取的问题
+spring security5 默认的令牌校验逻辑只处理scope，而忽略了用户的授权信息。我又仔细看了下官方文档，没有相关设置。
+但是对于Opaque模式的token可以使用自定义的方式来实现。JWT的方式目前我还没尝试如何解决。
+> Opaque 不透明Token的定义方式，我并没有提交代码，可以进行查看官网文档。
+解决方法如下：
+* 在Oauth2 Server中自定义claim，类似如下代码
+```java
+@Bean
+public OAuth2TokenCustomizer<OAuth2TokenClaimsContext> accessTokenCustomizer(){
+    return context -> {
+        OAuth2TokenClaimsSet.Builder claims = context.getClaims();
+        claims.claim("customClaim", context.getPrincipal().getAuthorities());
+        System.out.println(claims);
+    };
+}
+```
+* 资源服务器自定义NimbusOpaqueTokenIntrospector的子类，类似如下代码
+```java
+package com.itlab1024.oauth2resource.config;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.SneakyThrows;
+import lombok.extern.slf4j.Slf4j;
+import net.minidev.json.JSONArray;
+import net.minidev.json.JSONObject;
+import org.springframework.core.convert.converter.Converter;
+import org.springframework.http.RequestEntity;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.oauth2.core.OAuth2AuthenticatedPrincipal;
+import org.springframework.security.oauth2.server.resource.introspection.NimbusOpaqueTokenIntrospector;
+import org.springframework.security.oauth2.server.resource.introspection.OAuth2IntrospectionAuthenticatedPrincipal;
+import org.springframework.web.client.RestOperations;
+
+import java.util.ArrayList;
+import java.util.Collection;
+
+@Slf4j
+public class ITLabOpaqueTokenIntrospector extends NimbusOpaqueTokenIntrospector {
+
+    public ITLabOpaqueTokenIntrospector(String introspectionUri, String clientId, String clientSecret) {
+        super(introspectionUri, clientId, clientSecret);
+    }
+
+    public ITLabOpaqueTokenIntrospector(String introspectionUri, RestOperations restOperations) {
+        super(introspectionUri, restOperations);
+    }
+
+    @SneakyThrows
+    @Override
+    public OAuth2AuthenticatedPrincipal introspect(String token) {
+        OAuth2AuthenticatedPrincipal oAuth2AuthenticatedPrincipal = super.introspect(token);
+        Collection<SimpleGrantedAuthority> authorities2 = (Collection<SimpleGrantedAuthority>) oAuth2AuthenticatedPrincipal.getAuthorities();
+        Collection<GrantedAuthority> authorities = new ArrayList<>(authorities2);
+        JSONArray jsonArray = oAuth2AuthenticatedPrincipal.getAttribute("customClaim");
+        for (Object o : jsonArray) {
+            JSONObject jsonObject = (JSONObject) o;
+            Object authority = jsonObject.get("authority");
+            authorities.add(new SimpleGrantedAuthority(authority.toString()));
+        }
+        log.info(new ObjectMapper().writeValueAsString(authorities2));
+        return new OAuth2IntrospectionAuthenticatedPrincipal(oAuth2AuthenticatedPrincipal.getAttributes(), authorities);
+    }
+
+    @Override
+    public void setRequestEntityConverter(Converter<String, RequestEntity<?>> requestEntityConverter) {
+        super.setRequestEntityConverter(requestEntityConverter);
+    }
+}
+
+```
+* 资源服务器ResourceConfig里配置上刚才写的类。
+```java
+@Bean
+public NimbusOpaqueTokenIntrospector opaqueTokenIntrospector() {
+    return new ITLabOpaqueTokenIntrospector(oAuth2ResourceServerProperties.getOpaquetoken().getIntrospectionUri(), oAuth2ResourceServerProperties.getOpaquetoken().getClientId(), oAuth2ResourceServerProperties.getOpaquetoken().getClientSecret());
+}
+
+@Bean
+public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    http
+            .authorizeHttpRequests(authorize -> authorize
+                    .anyRequest().authenticated()
+            )
+            .oauth2ResourceServer(oauth2 -> oauth2
+                    .opaqueToken(opaqueToken -> opaqueToken
+                            .introspector(opaqueTokenIntrospector())
+                    )
+            );
+    return http.build();
+}
+```
