@@ -178,7 +178,9 @@ spring security5 默认的令牌校验逻辑只处理scope，而忽略了用户�
 
 
 解决方法如下：
-* 在Oauth2 Server中自定义claim，类似如下代码
+
+在Oauth2 Server中自定义claim，类似如下代码
+
 ```java
 @Bean
 public OAuth2TokenCustomizer<OAuth2TokenClaimsContext> accessTokenCustomizer(){
@@ -189,7 +191,8 @@ public OAuth2TokenCustomizer<OAuth2TokenClaimsContext> accessTokenCustomizer(){
     };
 }
 ```
-* 资源服务器自定义NimbusOpaqueTokenIntrospector的子类，类似如下代码
+资源服务器自定义NimbusOpaqueTokenIntrospector的子类，类似如下代码
+
 ```java
 package com.itlab1024.oauth2resource.config;
 
@@ -242,9 +245,10 @@ public class ITLabOpaqueTokenIntrospector extends NimbusOpaqueTokenIntrospector 
         super.setRequestEntityConverter(requestEntityConverter);
     }
 }
-
 ```
-* 资源服务器ResourceConfig里配置上刚才写的类。
+
+资源服务器ResourceConfig里配置上刚才写的类。
+
 ```java
 @Bean
 public NimbusOpaqueTokenIntrospector opaqueTokenIntrospector() {
