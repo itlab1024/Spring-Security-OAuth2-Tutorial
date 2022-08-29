@@ -175,6 +175,8 @@ scope在AuthoritySet中，但是我设置的角色确不在，查了些资料发
 spring security5 默认的令牌校验逻辑只处理scope，而忽略了用户的授权信息。我又仔细看了下官方文档，没有相关设置。
 但是对于Opaque模式的token可以使用自定义的方式来实现。JWT的方式目前我还没尝试如何解决。
 > Opaque 不透明Token的定义方式，我并没有提交代码，可以进行查看官网文档。
+
+
 解决方法如下：
 * 在Oauth2 Server中自定义claim，类似如下代码
 ```java
